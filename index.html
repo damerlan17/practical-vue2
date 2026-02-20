@@ -9,6 +9,17 @@
 </head>
 <body>
 
+<div id="app">
+    <h1>Мои заметки</h1>
+    <div class="board">
+        <div class="column" v-for="column in columns" :key="column.id">
+            <h2>{{ column.title }}</h2>
+
+        </div>
+    </div>
+</div>
+
+
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="scripts/main.js"></script>
 </body>
