@@ -14,8 +14,21 @@
     <div class="board">
         <div class="column" v-for="column in columns" :key="column.id">
             <h2>{{ column.title }}</h2>
+            <div v-for="card in cards.filter(c => c.col === column.id)"
+                 :key="card.id" class="card">
+                <div class="card">
+                    <h3>{{ card.title }}</h3>
+                    <ul>
+                        <li v-for="(item, idx) in card.items" :key="idx">
+                            <input type="checkbox" v-model="item.completed">
+                            <span>{{ item.text }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
         </div>
+
     </div>
 </div>
 
