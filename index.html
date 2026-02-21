@@ -20,7 +20,7 @@
                     <input v-model="card.title" placeholder="Заголовок">
                     <ul>
                         <li v-for="(item, idx) in card.items" :key="idx">
-                            <input type="checkbox" v-model="item.completed">
+                            <input type="checkbox" v-model="item.completed" @change="checkAndMove(card)">
                             <input v-model="item.text" placeholder="Текст пункта">
                             <button v-if="card.items.length > 3" @click="removeItem(card, idx)">✖</button>
                         </li>
