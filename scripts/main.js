@@ -38,12 +38,14 @@ createApp({
 
 
     methods: {
+
         addItem(card) {
             if (card.items.length < 5) {
                 card.items.push({text: '', completed: false});
                 this.checkAndMove(card);
             }
         },
+
         removeItem(index, card) {
             if (card.items.length > 3) {
                 card.items.splice(index, 1);
