@@ -17,13 +17,15 @@
             <div v-for="card in cards.filter(c => c.col === column.id)"
                  :key="card.id" class="card">
                 <div class="card">
-                    <h3>{{ card.title }}</h3>
+                    <input v-model="card.title" placeholder="Заголовок">
                     <ul>
                         <li v-for="(item, idx) in card.items" :key="idx">
                             <input type="checkbox" v-model="item.completed">
-                            <span>{{ item.text }}</span>
+                            <input v-model="item.text" placeholder="Текст пункта">
+                            <button v-if="card.items.length > 3" @click="removeItem(card, idx)">✖</button>
                         </li>
                     </ul>
+                    <button v-if="card.items.length < 5" @click="addItem(card)">+ Добавить пункт</button>
                 </div>
             </div>
 
