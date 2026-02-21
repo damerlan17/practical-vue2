@@ -14,27 +14,63 @@
     <div class="board">
         <div class="column" v-for="column in columns" :key="column.id">
             <h2>{{ column.title }}</h2>
-            <div v-for="card in cards.filter(c => c.col === column.id)"
-                 :key="card.id" class="card">
-                <div class="card">
-                    <form action="">
-                        <div v-if="card.column === 3 && card.completedAt" class="completed-date">
-                            Завершено: {{ card.completedAt }}
-                        </div>
-                        <input v-model="card.title" placeholder="Заголовок">
+
+            <div class="column" v-for="col in columns" :key="col.id">
+                <h2>{{ col.title }} ({{ cards.filter(c => c.col === col.id).length }})</h2>
+                <div v-for="card in cards.filter(c => c.col === col.id)" :key="card.id" class="card">
+                    <div class="card" :class="{ locked: card.col === 1 && isColumn1Locked }">
+                        <input
+                                v-model="card.title"
+                                placeholder="Заголовок"
+                                :disabled="card.col === 1 && isColumn1Locked"
+                        >
                         <ul>
                             <li v-for="(item, idx) in card.items" :key="idx">
-                                <input type="checkbox" v-model="item.completed" @change="checkAndMove(card)">
-                                <input v-model="item.text" placeholder="Текст пункта">
-                                <button v-if="card.items.length > 3" @click="removeItem(card, idx)">✖</button>
+                                <input
+                                        type="checkbox"
+                                        v-model="item.completed"
+                                        @change="checkAndMove(card)"
+                                        :disabled="card.col === 1 && isColumn1Locked"
+                                >
+                                <input
+                                        v-model="item.text"
+                                        placeholder="Текст пункта"
+                                        :disabled="card.col === 1 && isColumn1Locked"
+                                >
+                                <button
+                                        v-if="card.items.length > 3"
+                                        @click="removeItem(idx, card)"
+                                        :disabled="card.col === 1 && isColumn1Locked"
+                                >✖
+                                </button>
                             </li>
                         </ul>
+                        <button
+                                v-if="card.items.length < 5"
+                                @click="addItem(card)"
+                                :disabled="card.col === 1 && isColumn1Locked"
+                        >+ Добавить пункт
+                        </button>
 
-
-                        <button v-if="card.items.length < 5" @click="addItem(card)">+ Добавить пункт</button>
-                    </form>
+                        <!-- Отображение даты завершения для третьей колонки -->
+                        <div v-if="card.col === 3 && card.completedAt" class="completed-date">
+                            Завершено: {{ card.completedAt }}
+                        </div>
+                    </div>
                 </div>
+                <!-- Кнопка добавления карточки -->
+                <button
+                        @click="addCard(col.id)"
+                        :disabled="
+            (col.id === 1 && (isColumn1Locked || cards.filter(c => c.col === 1).length >= 3)) ||
+            (col.id === 2 && cards.filter(c => c.col === 2).length >= 5)
+        "
+                >
+                    + Добавить карточку
+                </button>
             </div>
+
+
 
         </div>
 

@@ -72,6 +72,30 @@ createApp({
                 card.col = 3;
                 card.completedAt = new Date().toLocaleString();
             }
+        },
+
+        addCard(column) {
+            if (column === 1 && this.cards.filter(c => c.col === 1).length >= 3) {
+                alert('В первом столбце не может быть больше 3 карточек');
+                return;
+            }
+            if (column === 2 && this.cards.filter(c => c.col === 2).length >= 5) {
+                alert('Во втором столбце не может быть больше 5 карточек');
+                return;
+            }
+
+            const newCard = {
+                id: Date.now(),
+                title: 'Новая заметка',
+                col: column,
+                items: [
+                    {text: 'Пункт 1', completed: false},
+                    {text: 'Пункт 2', completed: false},
+                    {text: 'Пункт 3', completed: false}
+                ],
+                completedAt: null
+            };
+            this.cards.push(newCard);
         }
 
     },
@@ -81,7 +105,6 @@ createApp({
         if (saved) {
             this.cards = JSON.parse(saved);
         } else {
-            // начальные данные
         }
     },
     watch: {
@@ -92,6 +115,24 @@ createApp({
             deep: true
         }
     },
+
+    computed: {
+        isColumn1Locked() {
+
+            const column2Count = this.cards.filter(c => c.col === 2).length;
+            if (column2Count < 5) return false;
+
+
+            return this.cards.some(card => {
+                if (card.col !== 1) return false;
+                const total = card.items.length;
+                if (total === 0) return false;
+                const completed = card.items.filter(i => i.completed).length;
+                const percent = (completed / total) * 100;
+                return percent > 50 && percent < 100;
+            });
+        }
+    }
 
 
 }).mount('#app');
