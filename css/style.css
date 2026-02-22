@@ -1,16 +1,189 @@
+/* Минималистичные стили в фиолетово-жёлтой гамме — все размеры в пикселях */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #1a1625;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #eae6f0;
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+}
+
+#app {
+    width: 100%;
+    max-width: 1300px;
+}
+
+h1 {
+    text-align: center;
+    font-weight: 400;
+    font-size: 40px;
+    letter-spacing: 1px;
+    color: #f3d572;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #3d3550;
+    padding-bottom: 13px;
+}
+
 .board {
     display: flex;
-    gap: 20px;
+    gap: 29px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .column {
-    flex: 1;
-    border: 1px solid #ccc;
-    padding: 10px;
+    background-color: #241f31;
+    border-radius: 18px;
+    padding: 24px 19px;
+    min-width: 280px;
+    flex: 1 1 300px;
+    border: 1px solid #3e3555;
+}
+
+.column h2 {
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 19px;
+    color: #f3d572;
+    border-bottom: 1px solid #3e3555;
+    padding-bottom: 6px;
 }
 
 .card {
-    border: 1px solid #aaa;
-    margin-bottom: 10px;
-    padding: 10px;
+    background-color: #2d263b;
+    border-radius: 14px;
+    padding: 19px 16px;
+    margin-bottom: 19px;
+    border: 1px solid #463b5c;
+}
+
+.card.locked {
+    opacity: 0.6;
+    background-color: #2b2436;
+    border-color: #4a3e5a;
+    pointer-events: none;
+}
+
+/* Поля ввода (заголовок карточки и пункты списка) */
+.card input[type="text"] {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed #5f5177;
+    padding: 6px 0;
+    font-size: 16px;
+    color: #f0eaff;
+    margin-bottom: 16px;
+    outline: none;
+}
+
+.card input[type="text"]:focus {
+    border-bottom-color: #f3d572;
+}
+
+.card input[type="text"]:disabled {
+    opacity: 0.5;
+    border-bottom-color: #4f4365;
+}
+
+/* Чекбоксы */
+.card li input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #f3d572;
+    margin: 0;
+    cursor: pointer;
+}
+
+/* Кнопки удаления пункта */
+.card li button {
+    background: none;
+    border: none;
+    color: #b5a0d9;
+    font-size: 21px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 3px;
+}
+
+.card li button:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+/* Кнопка добавления пункта внутри карточки */
+.card > button {
+    background: transparent;
+    border: 1px solid #5f5177;
+    border-radius: 40px;
+    padding: 6px 16px;
+    font-size: 14px;
+    color: #d4c2fc;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.card > button:disabled {
+    opacity: 0.4;
+    border-color: #4e4262;
+    cursor: default;
+}
+
+/* Кнопка добавления карточки под колонкой */
+.column > button {
+    width: 100%;
+    background: transparent;
+    border: 1px solid #5f5177;
+    border-radius: 40px;
+    padding: 11px 0;
+    font-size: 16px;
+    color: #d4c2fc;
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+.column > button:disabled {
+    opacity: 0.4;
+    border-color: #4e4262;
+    cursor: default;
+}
+
+.completed-date {
+    font-size: 13px;
+    color: #b5a0d9;
+    margin-top: 13px;
+    text-align: right;
+    border-top: 1px solid #3e3555;
+    padding-top: 10px;
+}
+
+
+ input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed #5f5177;
+    padding: 6px 0;
+    font-size: 16px;
+    color: #f0eaff;
+    margin-bottom: 16px;
+    outline: none;
+}
+
+ input {
+    border-bottom-color: #f3d572;
+}
+
+input {
+    opacity: 0.5;
+    border-bottom-color: #4f4365;
 }
