@@ -32,7 +32,7 @@ createApp({
                 },
 
             ],
-
+            searchQuery: ''
         }
     },
 
@@ -131,6 +131,14 @@ createApp({
                 const percent = (completed / total) * 100;
                 return percent > 50 && percent < 100;
             });
+        },
+        
+        filteredCards() {    // <-- новое вычисляемое свойство
+            const query = this.searchQuery.trim().toLowerCase();
+            if (!query) return this.cards; // если поиск пуст, показываем всё
+            return this.cards.filter(card =>
+                card.title.toLowerCase().includes(query)
+            );
         }
     }
 

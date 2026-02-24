@@ -12,13 +12,15 @@
 
 <div id="app">
     <h1>Мои заметки</h1>
+    <input type="text" v-model="searchQuery" placeholder="Поиск по названию карточки" class="search-input">
     <div class="board">
-        <!-- Один цикл по колонкам, без вложенных повторений -->
         <div class="column" v-for="col in columns" :key="col.id">
-            <h2>{{ col.title }} ({{ cards.filter(c => c.col === col.id).length }})</h2>
+            <h2>{{ col.title }} ({{ filteredCards.filter(c => c.col === col.id).length }})</h2>
+
 
             <!-- Карточки текущей колонки -->
-            <div v-for="card in cards.filter(c => c.col === col.id)" :key="card.id"
+
+            <div v-for="card in filteredCards.filter(c => c.col === col.id)" :key="card.id"
                  class="card"
                  :class="{ locked: card.col === 1 && isColumn1Locked }">
                 <input v-model="card.title"
@@ -39,7 +41,7 @@
                     </li>
                 </ul>
                 <button v-if="card.items.length < 5"
-                        @click="addItem(card)"
+                        @click="addCard(col.id)"
                         :disabled="card.col === 1 && isColumn1Locked">+ Добавить пункт</button>
 
                 <!-- Дата завершения для третьей колонки -->
